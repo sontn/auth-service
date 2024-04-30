@@ -27,8 +27,6 @@ export class UsersService {
 
     await this.userRepository.save(user);
 
-    console.log({ user });
-
     // remove password from response
     delete user.password;
 
