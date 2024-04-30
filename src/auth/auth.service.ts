@@ -38,4 +38,37 @@ export class AuthService {
 
     return user;
   }
+  async login(user: User) {
+    // find user by email
+    const existingUser = await this.userRepository.findOneBy({
+      email: user.email,
+    });
+
+    // throw error if user does not exist
+    if (!existingUser) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    // compare password
+    const isPasswordValid = await bcrypt.compare(
+      user.password,
+      existingUser.password,
+    );
+
+    // throw error if password is invalid
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    // generate token jwt token
+    const jwtToken = this.jwtService.sign({
+      id: existingUser.id,
+      email: existingUser.email,
+      tokenVersion: existingUser.tokenVersion,
+    });
+
+
+    // return refresh token in response
+    return { jwtToken };
+  }
 }
