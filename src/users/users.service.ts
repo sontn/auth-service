@@ -1,34 +1,37 @@
-import { Injectable } from '@nestjs/common';
-
-// This should be a real class/interface representing a user entity
-
-export type User = any;
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { User } from './user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  private readonly users: User[];
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'sontran',
-        password: 'changeme',
-      },
-      {
-        userId: 2,
-        username: 'neo',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        username: 'peter',
-        password: 'guess',
-      },
-    ];
-  }
+  async createUser(user: User): Promise<User> {
+    // find user by email
+    const existingUser = await this.userRepository.findOneBy({
+      email: user.email,
+    });
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+    // throw error if user already exists
+    if (existingUser) {
+      throw new BadRequestException('User already exists');
+    }
+
+    // bcrypt password
+    user.password = await bcrypt.hash(user.password, 12);
+
+    await this.userRepository.save(user);
+
+    console.log({ user });
+
+    // remove password from response
+    delete user.password;
+
+    return user;
   }
 }
