@@ -64,9 +64,7 @@ export class AuthService {
     const jwtToken = this.jwtService.sign({
       id: existingUser.id,
       email: existingUser.email,
-      tokenVersion: existingUser.tokenVersion,
     });
-
 
     // return refresh token in response
     return { jwtToken };

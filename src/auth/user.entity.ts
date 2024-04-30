@@ -14,7 +14,4 @@ export class User {
   @Column()
   @MinLength(6)
   password: string;
-
-  @Column({ default: 0 })
-  tokenVersion: number;
 }
