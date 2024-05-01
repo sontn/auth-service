@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { BlogModule } from 'src/blog/blog.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ConfigModule } from '@nestjs/config';
         expiresIn: '300s',
       },
     }),
+    BlogModule
   ],
   controllers: [AuthController],
   providers: [AuthService],
