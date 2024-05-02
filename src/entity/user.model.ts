@@ -1,6 +1,7 @@
-// create User Entity
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Post } from './post.model';
+import { Comment } from './comment.model';
 import { IsEmail, MinLength } from 'class-validator';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -17,4 +18,10 @@ export class User {
 
   @Column({default: () => 'CURRENT_TIMESTAMP'})
   createdAt: Date;
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[];
 }

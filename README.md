@@ -1,6 +1,6 @@
 # auth-service
 
-Authentication service
+Authentication and Blog services
 
 ## How to run code
 
