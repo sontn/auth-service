@@ -1,9 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { BlogService } from './blog.service';
+import { Article } from '../entity/article.model';
 
 @Controller('blog')
 export class BlogController {
-    @Get()
+    constructor(private blogService: BlogService) {}
+
+    @Get('/getallposts')
     async getAllBlogs() {
-        return 'All Blogs';
+        return this.blogService.getAllBlogs();
+    }
+
+    @Post('/createarticle')
+    async createArticle(@Body() post: Article) {
+        return this.blogService.createArticle(post);
     }
 }

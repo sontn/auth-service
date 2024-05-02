@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Post } from './post.model';
+import { Article } from './article.model';
 import { Comment } from './comment.model';
 import { IsEmail, MinLength } from 'class-validator';
 
@@ -19,8 +19,8 @@ export class User {
   @Column({default: () => 'CURRENT_TIMESTAMP'})
   createdAt: Date;
 
-  @OneToMany(() => Post, (post) => post.author)
-  posts: Post[];
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[];
 
   @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];

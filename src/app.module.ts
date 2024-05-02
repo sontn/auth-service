@@ -8,7 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { BlogController } from 'src/blog/blog.controller';
 import { BlogService } from 'src/blog/blog.service';
-import { Post } from './entity/post.model';
+import { Article } from './entity/article.model';
 import { Comment } from './entity/comment.model';
 
 
@@ -25,7 +25,7 @@ import { Comment } from './entity/comment.model';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([User, Post, Comment]),
+    TypeOrmModule.forFeature([User, Article, Comment]),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

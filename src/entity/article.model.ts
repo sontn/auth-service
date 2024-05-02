@@ -2,8 +2,8 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 import { Comment } from './comment.model';
 import { User } from './user.model';
 
-@Entity('posts')
-export class Post {
+@Entity('articles')
+export class Article {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,10 +13,10 @@ export class Post {
   @Column()
   content: string;
 
-  @ManyToOne(() => User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.articles)
   author: User
 
-  @OneToMany(() => Comment, (comment) => comment.post)
+  @OneToMany(() => Comment, (comment) => comment.article)
   comments: Comment[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

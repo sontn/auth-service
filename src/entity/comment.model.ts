@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Post } from './post.model';
+import { Article } from './article.model';
 import { User } from './user.model';
 
 @Entity('comments')
@@ -13,8 +13,8 @@ export class Comment {
   @Column()
   content: string;
 
-  @ManyToOne(() => Post, (post) => post.comments)
-  post: Post;
+  @ManyToOne(() => Article, (article) => article.comments)
+  article: Article;
 
   @ManyToOne(() => User, (user) => user.comments)
   author: User;
