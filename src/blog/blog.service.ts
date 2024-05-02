@@ -8,18 +8,18 @@ import { Repository } from 'typeorm';
 export class BlogService {
   constructor(
     @InjectRepository(Article)
-    private postRepository: Repository<Article>,
+    private articleRepository: Repository<Article>,
 
     @InjectRepository(Comment)
     private commentRepository: Repository<Comment>,
   ) {}
 
-  getAllBlogs() {
-    return this.postRepository.find();
+  getAllArticles() {
+    return this.articleRepository.find();
   }
 
-  createArticle(post: Article) {
-    return this.postRepository.save({
+  createArticle(article: Article) {
+    return this.articleRepository.save({
       title: 'New Article',
       content: 'This is a new article',
     });

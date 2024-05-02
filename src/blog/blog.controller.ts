@@ -6,13 +6,13 @@ import { Article } from '../entity/article.model';
 export class BlogController {
     constructor(private blogService: BlogService) {}
 
-    @Get('/getallposts')
-    async getAllBlogs() {
-        return this.blogService.getAllBlogs();
+    @Get('/getallarticles')
+    async getAllArticles() {
+        return this.blogService.getAllArticles();
     }
 
     @Post('/createarticle')
-    async createArticle(@Body() post: Article) {
-        return this.blogService.createArticle(post);
+    async createArticle(@Body() article: Article) {
+        return this.blogService.createArticle(article);
     }
 }
