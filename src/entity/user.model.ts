@@ -3,7 +3,7 @@ import { Article } from './article.model';
 import { Comment } from './comment.model';
 import { IsEmail, MinLength } from 'class-validator';
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
