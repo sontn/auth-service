@@ -1,18 +1,30 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { Article } from '../entity/article.model';
+import { AuthGuard } from 'src/guard/auth.guard';
+import { User } from 'src/entity/user.model';
 
 @Controller('blog')
 export class BlogController {
-    constructor(private blogService: BlogService) {}
+  constructor(private blogService: BlogService) {}
 
-    @Get('/getallarticles')
-    async getAllArticles() {
-        return this.blogService.getAllArticles();
-    }
+  @Get('/articles')
+  async getAllArticles() {
+    return this.blogService.getAllArticles();
+  }
 
-    @Post('/createarticle')
-    async createArticle(@Body() article: Article) {
-        return this.blogService.createArticle(article);
-    }
+  @Post('/article/create')
+  @UseGuards(AuthGuard)
+  async createArticle(@Body() article: Article, @Request() req) {
+    const user = new User();
+    user.email = req.user.email;
+    return this.blogService.createArticle(article, user);
+  }
 }

@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Comment } from './comment.model';
 import { User } from './user.model';
+import { IsNotEmpty } from 'class-validator';
 
 @Entity('articles')
 export class Article {
@@ -8,9 +9,11 @@ export class Article {
   id: number;
 
   @Column()
+  @IsNotEmpty()
   title: string;
 
   @Column()
+  @IsNotEmpty()
   content: string;
 
   @ManyToOne(() => User, (user) => user.articles)

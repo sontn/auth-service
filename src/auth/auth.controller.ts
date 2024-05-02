@@ -15,7 +15,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
-  async signUp(@Body() user: User) {
+  async signUp(@Body() user: User): Promise<{ jwtToken: string }> {
     return this.authService.signUp(user);
   }
 

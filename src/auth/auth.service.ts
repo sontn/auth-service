@@ -17,7 +17,7 @@ export class AuthService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-  async signUp(user: User) {
+  async signUp(user: User): Promise<{ jwtToken: string }> {
     // find user by email
     const existingUser = await this.userRepository.findOneBy({
       email: user.email,
@@ -33,10 +33,12 @@ export class AuthService {
 
     await this.userRepository.save(user);
 
-    // remove password from response
-    delete user.password;
+    const jwtToken = this.jwtService.sign({
+      id: user.id,
+      email: user.email,
+    });
 
-    return user;
+    return { jwtToken };
   }
   async login(user: User) {
     // find user by email
