@@ -2,13 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Article } from './article.model';
 import { Comment } from './comment.model';
 import { IsEmail, MinLength } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import { BaseModel } from './base.model';
 
 @Entity('users')
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseModel {
   @IsEmail()
   @Column({ unique: true })
   email: string;
@@ -16,9 +13,6 @@ export class User {
   @Column()
   @MinLength(6)
   password: string;
-
-  @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
 
   @OneToMany(() => Article, (article) => article.author)
   articles: Article[];

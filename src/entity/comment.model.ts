@@ -1,12 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Article } from './article.model';
 import { User } from './user.model';
+import { BaseModel } from './base.model';
 
 @Entity('comments')
-export class Comment {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Comment extends BaseModel {
   @Column()
   email: string;
 
@@ -18,7 +16,4 @@ export class Comment {
 
   @ManyToOne(() => User, (user) => user.comments)
   author: User;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
 }

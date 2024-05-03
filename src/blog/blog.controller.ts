@@ -24,7 +24,9 @@ export class BlogController {
   @UseGuards(AuthGuard)
   async createArticle(@Body() article: Article, @Request() req) {
     const user = new User();
+    user.id = req.user.id;
     user.email = req.user.email;
+
     return this.blogService.createArticle(article, user);
   }
 }
