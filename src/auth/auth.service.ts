@@ -14,9 +14,11 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(
     private jwtService: JwtService,
+
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
+
   async signUp(user: User): Promise<{ jwtToken: string }> {
     // find user by email
     const existingUser = await this.userRepository.findOneBy({

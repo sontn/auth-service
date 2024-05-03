@@ -1,16 +1,17 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { User } from './entity/user.model';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants/constants';
+import { jwtConstants } from './jwt/constants';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { BlogController } from 'src/blog/blog.controller';
 import { BlogService } from 'src/blog/blog.service';
 import { Article } from './entity/article.model';
 import { Comment } from './entity/comment.model';
-
+import { AuthModule } from './auth/auth.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
@@ -33,9 +34,9 @@ import { Comment } from './entity/comment.model';
         algorithm: 'RS256',
         expiresIn: '300s',
       },
-    }),    
+    }),
+    AuthModule,
+    BlogModule
   ],
-  controllers: [AuthController, BlogController],
-  providers: [AuthService, BlogService],
 })
 export class AppModule {}
