@@ -25,7 +25,7 @@ export class BlogController {
   async createArticle(@Body() article: Article, @Request() req) {
     const user = new User();
     user.id = req.user.id;
-    user.id = 100;
+    // user.id = 100;
     user.email = req.user.email;
 
     return this.blogService.createArticle(article, user);

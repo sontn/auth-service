@@ -36,15 +36,13 @@ export class BlogService {
   }
 
   async createArticle(article: Article, user: User) {
-    try {
-      // user.id = 1000;
+    try {      
       // Author is required to create an article
       article.author = user;
       return await this.articleRepository.save(article);
     } catch (error) {
-      // use logger to log the error
 
-      throw new BadRequestException('Failed to create an article');
+      throw new BadRequestException(error.message);
     }
   }
 }
