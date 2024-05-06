@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '../entity/user.model';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Hasher } from 'src/hash/hasher.interface';
+import { Hasher } from 'src/utilities/hash/hasher.interface';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +16,7 @@ export class AuthService {
     @Inject('Hasher') private hasher: Hasher,
 
     private jwtService: JwtService,
-
+    
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
@@ -32,7 +32,7 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
 
-    // bcrypt password
+    // hash password
     user.password = await this.hasher.hash(user.password);
 
     await this.userRepository.save(user);

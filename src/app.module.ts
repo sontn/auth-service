@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { User } from './entity/user.model';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './jwt/constants';
+import { jwtConstants } from './utilities/jwt/constants';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
