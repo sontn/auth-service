@@ -1,13 +1,10 @@
-import { Global, Module } from '@nestjs/common';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
+import { Module } from '@nestjs/common';
 import { User } from './entity/user.model';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './jwt/constants';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { BlogController } from 'src/blog/blog.controller';
-import { BlogService } from 'src/blog/blog.service';
+
 import { Article } from './entity/article.model';
 import { Comment } from './entity/comment.model';
 import { AuthModule } from './auth/auth.module';
@@ -36,7 +33,8 @@ import { BlogModule } from './blog/blog.module';
       },
     }),
     AuthModule,
-    BlogModule
+    BlogModule,
   ],
 })
+
 export class AppModule {}

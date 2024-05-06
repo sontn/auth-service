@@ -1,18 +1,20 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
 import { User } from '../entity/user.model';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
+import { Hasher } from 'src/hash/hasher.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject('Hasher') private hasher: Hasher,
+
     private jwtService: JwtService,
 
     @InjectRepository(User)
@@ -31,7 +33,7 @@ export class AuthService {
     }
 
     // bcrypt password
-    user.password = await bcrypt.hash(user.password, 12);
+    user.password = await this.hasher.hash(user.password);
 
     await this.userRepository.save(user);
 
@@ -54,7 +56,7 @@ export class AuthService {
     }
 
     // compare password
-    const isPasswordValid = await bcrypt.compare(
+    const isPasswordValid = await this.hasher.compare(
       user.password,
       existingUser.password,
     );
