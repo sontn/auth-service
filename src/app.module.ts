@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { User } from './entity/user.model';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './utilities/jwt/constants';
@@ -38,3 +38,4 @@ import { BlogModule } from './blog/blog.module';
 })
 
 export class AppModule {}
+
