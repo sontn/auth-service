@@ -42,6 +42,7 @@ export class AuthService {
 
     return { jwtToken };
   }
+
   async login(useDTO: UserDTO) {
     const existingUser = await this.userRepository.findOneBy({
       email: useDTO.email,
