@@ -17,17 +17,12 @@ export class AuthController {
 
   @Post('signup')
   async signUp(@Body() userDTO: UserDTO): Promise<{ jwtToken: string }> {
-    // Convert userDTO to user entity
-    const user = new User();
-    Object.assign(user, userDTO);
-    return this.authService.signUp(user);
+    return this.authService.signUp(userDTO);
   }
 
   @Post('login')
   async login(@Body() userDTO: UserDTO) {
-    const user = new User();
-    Object.assign(user, userDTO);
-    return this.authService.login(user);
+    return this.authService.login(userDTO);
   }
 
   @Get('profile')

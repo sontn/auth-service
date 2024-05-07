@@ -9,6 +9,7 @@ import { User } from '../repository/entities/user.model';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Hasher } from 'src/utilities/hash/hasher.interface';
+import { UserDTO } from './dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,26 +17,23 @@ export class AuthService {
     @Inject('Hasher') private hasher: Hasher,
 
     private jwtService: JwtService,
-    
+
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
 
-  async signUp(user: User): Promise<{ jwtToken: string }> {
-    // find user by email
+  async signUp(userDTO: UserDTO): Promise<{ jwtToken: string }> {
     const existingUser = await this.userRepository.findOneBy({
-      email: user.email,
+      email: userDTO.email,
     });
 
-    // throw error if user already exists
     if (existingUser) {
       throw new BadRequestException('User already exists');
     }
 
-    // hash password
-    user.password = await this.hasher.hash(user.password);
+    userDTO.password = await this.hasher.hash(userDTO.password);
 
-    await this.userRepository.save(user);
+    const user = await this.userRepository.save(userDTO);
 
     const jwtToken = this.jwtService.sign({
       id: user.id,
@@ -44,35 +42,29 @@ export class AuthService {
 
     return { jwtToken };
   }
-  async login(user: User) {
-    // find user by email
+  async login(useDTO: UserDTO) {
     const existingUser = await this.userRepository.findOneBy({
-      email: user.email,
+      email: useDTO.email,
     });
 
-    // throw error if user does not exist
     if (!existingUser) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // compare password
     const isPasswordValid = await this.hasher.compare(
-      user.password,
+      useDTO.password,
       existingUser.password,
     );
 
-    // throw error if password is invalid
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // generate token jwt token
     const jwtToken = this.jwtService.sign({
       id: existingUser.id,
       email: existingUser.email,
     });
 
-    // return refresh token in response
     return { jwtToken };
   }
 }
