@@ -5,11 +5,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../repository/entities/user.model';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Hasher } from 'src/utilities/hash/hasher.interface';
 import { UserDTO } from './dto/user.dto';
+import { IUserRepository } from 'src/repository/interfaces/user.repository.interface';
 
 @Injectable()
 export class AuthService {
@@ -18,8 +16,7 @@ export class AuthService {
 
     private jwtService: JwtService,
 
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @Inject('UserRepository') private userRepository: IUserRepository<UserDTO>,
   ) {}
 
   async signUp(userDTO: UserDTO): Promise<{ jwtToken: string }> {
