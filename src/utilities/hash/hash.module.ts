@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { BcryptHashService } from './bcrypt-hash.service';
 import { Argon2HashService } from './argon2-hash.service';
 
-
 const configHashServiceProviders = {
   provide: 'Hasher',
   useClass:
@@ -12,9 +11,7 @@ const configHashServiceProviders = {
 };
 
 @Module({
-  providers: [
-    configHashServiceProviders
-  ],
+  providers: [configHashServiceProviders],
   exports: ['Hasher'],
 })
 export class HashModule {}

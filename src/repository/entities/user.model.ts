@@ -1,4 +1,4 @@
-import { Entity,Column } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 import { IsEmail, MinLength } from 'class-validator';
 import { BaseModel } from './base.model';

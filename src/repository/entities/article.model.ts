@@ -1,7 +1,4 @@
-import {
-  Column,
-  Entity,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 import { IsNotEmpty } from 'class-validator';
 import { BaseModel } from './base.model';

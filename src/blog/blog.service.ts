@@ -23,12 +23,11 @@ export class BlogService {
   }
 
   async createArticle(article: Article, user: User) {
-    try {      
+    try {
       // Author is required to create an article
       article.authorId = user.id;
       return await this.articleRepository.save(article);
     } catch (error) {
-
       throw new BadRequestException(error.message);
     }
   }

@@ -21,6 +21,4 @@ import { RepositoryModule } from './repository/repository.module';
     RepositoryModule,
   ],
 })
-
 export class AppModule {}
-

@@ -6,8 +6,8 @@ import { Article } from '../repository/entities/article.model';
 import { User } from '../repository/entities/user.model';
 import { Comment } from '../repository/entities/comment.model';
 @Module({
-    imports: [TypeOrmModule.forFeature([User, Article, Comment])],
-    controllers: [BlogController],
-    providers: [BlogService],
+  imports: [TypeOrmModule.forFeature([User, Article, Comment])],
+  controllers: [BlogController],
+  providers: [BlogService],
 })
 export class BlogModule {}

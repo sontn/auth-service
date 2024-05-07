@@ -9,7 +9,6 @@ import {
 import { AuthService } from './auth.service';
 import { UserDTO } from './dto/user.dto';
 import { AuthGuard } from '../guard/auth.guard';
-import { User } from 'src/repository/entities/user.model';
 
 @Controller('auth')
 export class AuthController {
