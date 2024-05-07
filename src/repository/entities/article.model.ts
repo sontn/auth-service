@@ -19,9 +19,6 @@ export class Article extends BaseModel {
   @IsNotEmpty()
   content: string;
 
-  @ManyToOne(() => User, (user) => user.articles)
-  author: User;
-
-  @OneToMany(() => Comment, (comment) => comment.article)
-  comments: Comment[];
+  @Column()
+  authorId: number;
 }

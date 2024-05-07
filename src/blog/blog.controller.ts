@@ -7,9 +7,9 @@ import {
   Request,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { Article } from '../entity/article.model';
+import { Article } from '../repository/entities/article.model';
 import { AuthGuard } from 'src/guard/auth.guard';
-import { User } from 'src/entity/user.model';
+import { User } from '../repository/entities/user.model';
 
 @Controller('blog')
 export class BlogController {

@@ -5,15 +5,12 @@ import { BaseModel } from './base.model';
 
 @Entity('comments')
 export class Comment extends BaseModel {
-  @Column()
-  email: string;
+  @Column({ nullable: true })
+  authorId: number;
 
   @Column()
-  content: string;
+  articleId: number;
 
-  @ManyToOne(() => Article, (article) => article.comments)
-  article: Article;
-
-  @ManyToOne(() => User, (user) => user.comments)
-  author: User;
+  @Column()
+  comment: string;
 }

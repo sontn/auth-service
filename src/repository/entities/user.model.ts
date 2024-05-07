@@ -13,10 +13,4 @@ export class User extends BaseModel {
   @Column()
   @MinLength(6)
   password: string;
-
-  @OneToMany(() => Article, (article) => article.author)
-  articles: Article[];
-
-  @OneToMany(() => Comment, (comment) => comment.author)
-  comments: Comment[];
 }
