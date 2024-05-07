@@ -1,6 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Article } from './article.model';
-import { User } from './user.model';
+import { Entity, Column } from 'typeorm';
 import { BaseModel } from './base.model';
 
 @Entity('comments')
