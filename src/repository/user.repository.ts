@@ -1,11 +1,11 @@
 import { Repository } from 'typeorm';
 import { User } from 'src/repository/entities/user.model';
-import { IUserRepository } from 'src/repository/interfaces/user.repository.interface';
+import { IRepository } from 'src/repository/interfaces/repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class UserRepository implements IUserRepository<User> {
+export class UserRepository implements IRepository<User> {
   constructor(
     @InjectRepository(User)
     private repository: Repository<User>,
@@ -20,4 +20,7 @@ export class UserRepository implements IUserRepository<User> {
   }
 
   // Implement other methods as needed
+  async findAll(): Promise<User[]> {
+    return this.repository.find();
+  }
 }

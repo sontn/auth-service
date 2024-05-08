@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
 import { BlogController } from './blog.controller';
 import { BlogService } from './blog.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Article } from '../repository/entities/article.model';
-import { User } from '../repository/entities/user.model';
-import { Comment } from '../repository/entities/comment.model';
+import { RepositoryModule } from 'src/repository/repository.module';
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Article, Comment])],
+  imports: [RepositoryModule],
   controllers: [BlogController],
   providers: [BlogService],
 })

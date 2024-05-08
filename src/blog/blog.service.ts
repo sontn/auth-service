@@ -1,25 +1,22 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+
+// import { Repository } from 'typeorm';
 import { Article } from '../repository/entities/article.model';
 import { User } from '../repository/entities/user.model';
-import { Comment } from '../repository/entities/comment.model';
+
+import { ArtcileRepository } from 'src/repository/article.repository';
+import { IRepository } from 'src/repository/interfaces/repository.interface';
+import { ArticleDTO } from './dto/article.dto';
 
 @Injectable()
 export class BlogService {
   constructor(
-    @InjectRepository(Article)
-    private articleRepository: Repository<Article>,
-
-    @InjectRepository(Comment)
-    private commentRepository: Repository<Comment>,
-
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @Inject(ArtcileRepository)
+    private articleRepository: IRepository<ArticleDTO>,
   ) {}
 
   async getAllArticles() {
-    return this.articleRepository.find();
+    return this.articleRepository.findAll();
   }
 
   async createArticle(article: Article, user: User) {

@@ -7,7 +7,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { Article } from '../repository/entities/article.model';
+import { ArticleDTO } from './dto/article.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { User } from '../repository/entities/user.model';
 
@@ -22,7 +22,7 @@ export class BlogController {
 
   @Post('/article/create')
   @UseGuards(AuthGuard)
-  async createArticle(@Body() article: Article, @Request() req) {
+  async createArticle(@Body() article: ArticleDTO, @Request() req) {
     const user = new User();
     user.id = req.user.id;
     // user.id = 100;
