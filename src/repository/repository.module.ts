@@ -5,7 +5,7 @@ import { User } from 'src/repository/entities/user.model';
 import { Article } from 'src/repository/entities/article.model';
 import { Comment } from 'src/repository/entities/comment.model';
 import { ConfigModule } from '@nestjs/config';
-import { RepositoryService } from './repository.service';
+import { UserRepository } from 'src/repository/user.repository';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { RepositoryService } from './repository.service';
     }),
     TypeOrmModule.forFeature([User, Article, Comment]),
   ],
-  providers: [RepositoryService],
-  // exports: [RepositoryService],
+  providers: [UserRepository],
+  exports: [UserRepository],
 })
 export class RepositoryModule {}

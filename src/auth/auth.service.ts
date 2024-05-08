@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Hasher } from 'src/utilities/hash/hasher.interface';
 import { UserDTO } from './dto/user.dto';
 import { IUserRepository } from 'src/repository/interfaces/user.repository.interface';
+import { UserRepository } from 'src/repository/user.repository';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
 
     private jwtService: JwtService,
 
-    @Inject('UserRepository') private userRepository: IUserRepository<UserDTO>,
+    @Inject(UserRepository) private userRepository: IUserRepository<UserDTO>
   ) {}
 
   async signUp(userDTO: UserDTO): Promise<{ jwtToken: string }> {
