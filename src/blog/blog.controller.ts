@@ -5,11 +5,13 @@ import {
   Post,
   UseGuards,
   Request,
+  Put,
+  Param,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { ArticleDTO } from './dto/article.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
-import { User } from '../repository/entities/user.model';
+import { UpdateArticleDTO } from './dto/update-article.dto';
 
 @Controller('blog')
 export class BlogController {
@@ -20,14 +22,28 @@ export class BlogController {
     return this.blogService.getAllArticles();
   }
 
+  @Get('/article/:articleId')
+  async getArticleById(@Param('articleId') articleId: number) {
+    return this.blogService.getArticleById(articleId);
+  }
+
   @Post('/article/create')
   @UseGuards(AuthGuard)
-  async createArticle(@Body() article: ArticleDTO, @Request() req) {
-    const user = new User();
-    user.id = req.user.id;
-    // user.id = 100;
-    user.email = req.user.email;
+  async createArticleByAuthorId(@Body() article: ArticleDTO, @Request() req) {
+    return this.blogService.createArticleByAuthorId(article, req.user.id);
+  }
 
-    return this.blogService.createArticle(article, user);
+  @Put('/article/update/:articleId')
+  @UseGuards(AuthGuard)
+  async updateArticle(
+    @Param('articleId') articleId: number,
+    @Body() article: UpdateArticleDTO,
+    @Request() req,
+  ) {
+    return this.blogService.updateArticleByAuthorId(
+      articleId,
+      article,
+      req.user.id,
+    );
   }
 }
