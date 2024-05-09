@@ -23,4 +23,8 @@ export class UserRepository implements IRepository<User> {
   async findAll(): Promise<User[]> {
     return this.repository.find();
   }
+
+  async delete(criteria: Partial<User>): Promise<void> {
+    await this.repository.delete(criteria);
+  }
 }

@@ -57,4 +57,22 @@ export class BlogService {
       throw new BadRequestException(error.message);
     }
   }
+  async deleteArticleByAuthorId(articleId: number, authorId: number) {
+    try {
+      const existedArticle = await this.articleRepository.findOneBy({
+        id: articleId,
+      });
+      if (!existedArticle) {
+        throw new BadRequestException('Article not found');
+      }
+
+      if (existedArticle.authorId !== authorId) {
+        throw new BadRequestException('You are not the author of this article');
+      }
+
+      return await this.articleRepository.delete(existedArticle);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
 }

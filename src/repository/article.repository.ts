@@ -23,4 +23,7 @@ export class ArtcileRepository implements IRepository<Article> {
     return this.repository.find();
   }
   // Implement other methods as needed
+  async delete(criteria: Partial<Article>): Promise<void> {
+    await this.repository.delete(criteria);
+  }
 }

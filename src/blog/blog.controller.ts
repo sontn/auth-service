@@ -7,6 +7,7 @@ import {
   Request,
   Put,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { ArticleDTO } from './dto/article.dto';
@@ -45,5 +46,11 @@ export class BlogController {
       article,
       req.user.id,
     );
+  }
+
+  @Delete('/article/delete/:articleId')
+  @UseGuards(AuthGuard)
+  async deleteArticle(@Param('articleId') articleId: number, @Request() req) {
+    return this.blogService.deleteArticleByAuthorId(articleId, req.user.id);
   }
 }
