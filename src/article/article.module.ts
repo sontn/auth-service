@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { BlogController } from './blog.controller';
-import { BlogService } from './blog.service';
+import { ArticleController } from './article.controller';
+import { ArticleService } from './article.service';
 import { RepositoryModule } from 'src/repository/repository.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -18,7 +18,7 @@ import { jwtConstants } from 'src/utilities/jwt/constants';
     }),
     RepositoryModule,
   ],
-  controllers: [BlogController],
-  providers: [BlogService],
+  controllers: [ArticleController],
+  providers: [ArticleService],
 })
-export class BlogModule {}
+export class ArticleModule {}

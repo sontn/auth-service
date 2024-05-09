@@ -9,14 +9,14 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { BlogService } from './blog.service';
+import { ArticleService } from './article.service';
 import { ArticleDTO } from './dto/article.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { UpdateArticleDTO } from './dto/update-article.dto';
 
 @Controller('blog')
-export class BlogController {
-  constructor(private blogService: BlogService) {}
+export class ArticleController {
+  constructor(private blogService: ArticleService) {}
 
   @Get('/articles')
   async getAllArticles() {

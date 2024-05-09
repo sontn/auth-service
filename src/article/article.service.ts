@@ -4,7 +4,7 @@ import { IRepository } from 'src/repository/interfaces/repository.interface';
 import { ArticleDTO } from './dto/article.dto';
 
 @Injectable()
-export class BlogService {
+export class ArticleService {
   constructor(
     @Inject(ArtcileRepository)
     private articleRepository: IRepository<ArticleDTO>,
