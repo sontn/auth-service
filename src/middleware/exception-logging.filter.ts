@@ -1,4 +1,3 @@
-// src/middleware/exception-logging.filter.ts
 import {
   ExceptionFilter,
   Catch,
@@ -12,21 +11,30 @@ import { Request, Response } from 'express';
 export class ExceptionLoggingFilter implements ExceptionFilter {
   logger = new Logger(ExceptionLoggingFilter.name);
 
-  catch(exception: unknown, host: ArgumentsHost) {
+  catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status =
       exception instanceof HttpException ? exception.getStatus() : 500;
 
+    const message =
+      exception instanceof HttpException
+        ? exception.message
+        : 'Internal server error';
+
+    const errorResponse = JSON.stringify(exception.response);
+
     this.logger.error(
-      `Exception thrown: ${exception}, Request: ${request.method} ${request.url}`,
+      `Exception thrown: ${exception.message}, Exception error message: ${errorResponse}, Request: ${request.method} ${request.url} `,
     );
 
     response.status(status).json({
       statusCode: status,
-      timestamp: new Date().toISOString(),
-      message: `${exception}`,
+      message,
+      error: {
+        response: exception.response,
+      },
     });
   }
 }
