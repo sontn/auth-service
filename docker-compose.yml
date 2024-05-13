@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  my_api:
+    container_name: api_auth_service
+    build:
+      context: .
+      dockerfile: Dockerfile      
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    command: npx nest start --watch
+    restart: unless-stopped
+
+  # postgres need to be added here, but not implemented yet
